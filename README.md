@@ -19,7 +19,7 @@ Tested on Debian.
 ## Build/Install
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/nanobot-docker.git 
+git clone https://github.com/ciri/nanobot-docker.git 
 cd nanobot-docker
 docker build -t nanobot .
 ```
