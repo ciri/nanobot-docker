@@ -60,14 +60,6 @@ Edit `.nanobot/config.json` locally and add your API keys.
 
 ## Channels login 
 
-Follow the instructions in the original repository. For Whatsapp:
-
-```bash
-docker run -it \
-  -v $(pwd)/.nanobot:/root/.nanobot \
-  nanobot channels login
-```
-
 This step requires Node >= 20, which is already included in the image.
 
 For Telegram, if you have the config.json set-up with your bot's name/key, just run the gateway:
@@ -75,6 +67,24 @@ For Telegram, if you have the config.json set-up with your bot's name/key, just 
 ```bash
 docker run -it \
   -v $(pwd)/.nanobot:/root/.nanobot \
+  nanobot gateway
+```
+
+Whatsapp does not seem to be as stable but you can open the bridge using two individual dockers running side by side:
+
+```bash
+# 1) Start the WhatsApp bridge (keep this running)
+docker run -it \
+  --name nanobot-wa \
+  --network host \
+  -v $(pwd)/.nanobot:/root/.nanobot \
+  nanobot channels login
+# 2) Start the Nanobot gateway (separate terminal)
+docker run -it \
+  --name nanobot-gw \
+  --network host \
+  -v $(pwd)/.nanobot:/root/.nanobot \
+  -p 18790:18790 \
   nanobot gateway
 ```
 
